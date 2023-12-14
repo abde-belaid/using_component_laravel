@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\ProfileController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('Etudiant')->name('etudiants.')->group(function () {
+    Route::get('/', [EtudiantController::class, 'index'])->name("liste");
+
+
+    Route::get('/add', [EtudiantController::class, 'create'])->name('add');
+    Route::post('/ValiderAdd', [EtudiantController::class, 'store'])->name('ValiderAdd');
+    Route::get('/edit/{id}', [EtudiantController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [EtudiantController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [EtudiantController::class, 'delete'])->name('delete');
 });
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,4 +40,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
