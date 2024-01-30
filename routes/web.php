@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\dashController;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\ProfileController;
-
+use App\Models\Etudiant;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,16 +17,49 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('Etudiant')->name('etudiants.')->group(function () {
-    Route::get('/', [EtudiantController::class, 'index'])->name("liste");
+Route::get("/",[dashController::class,"index"]);
 
 
-    Route::get('/add', [EtudiantController::class, 'create'])->name('add');
-    Route::post('/ValiderAdd', [EtudiantController::class, 'store'])->name('ValiderAdd');
-    Route::get('/edit/{id}', [EtudiantController::class, 'edit'])->name('edit');
-    Route::patch('/update/{id}', [EtudiantController::class, 'update'])->name('update');
-    Route::delete('/delete/{id}', [EtudiantController::class, 'delete'])->name('delete');
-});
+Route::post("/login",[EtudiantController::class,"login"]);
+
+
+
+
+// Route::get("/{age}",function($age){
+//     return "valide";
+// })->middleware("CheckAge");
+
+
+
+
+
+// Route::get("/error",function(){
+//     return "erreur";
+// })->name("error");
+
+
+// Route::get("/",function(){
+//     return view("welcome");
+// });
+
+
+
+
+// Route::get("/", function () {
+//     $data = Etudiant::with("permis")->findOrFail(3);
+//     dd($data);
+// });
+
+// Route::prefix('Etudiant')->name('etudiants.')->group(function () {
+//     Route::get('/', [EtudiantController::class, 'index'])->name("liste");
+
+
+//     Route::get('/add', [EtudiantController::class, 'create'])->name('add');
+//     Route::post('/ValiderAdd', [EtudiantController::class, 'store'])->name('ValiderAdd');
+//     Route::get('/edit/{id}', [EtudiantController::class, 'edit'])->name('edit');
+//     Route::patch('/update/{id}', [EtudiantController::class, 'update'])->name('update');
+//     Route::delete('/delete/{id}', [EtudiantController::class, 'delete'])->name('delete');
+// });
 
 
 
@@ -40,8 +74,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::fallback(function() {
+Route::fallback(function () {
     return view('notfound.notfound'); // la vue 404.blade.php
- });
+});
 
 require __DIR__ . '/auth.php';

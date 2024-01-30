@@ -15,11 +15,15 @@ class Etudiant extends Model
         'nom',
         'prenom',
         'profile',
+        'image',
         
     ];
     // public function store($data)
     // {
     //     return Etudiant::create($this->createData($data));
     // }
+    public function permis(){
+        return $this->hasOne(Permis::class);
+    }
 
 }

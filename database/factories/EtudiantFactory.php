@@ -20,6 +20,7 @@ class EtudiantFactory extends Factory
             'nom'=>$this->faker->lastName(20),
             'prenom'=>$this->faker->firstName(20),
             'profile'=>$this->faker->jobTitle(),
+            'image'=>$this->faker->imageUrl(),
         ];
     }
 }

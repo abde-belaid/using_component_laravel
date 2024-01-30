@@ -1,181 +1,265 @@
-@extends('index.layouts')
-@section('css')
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+        integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+        :root {
+            --font1: 'Heebo', sans-serif;
+            --font2: 'Fira Sans Extra Condensed', sans-serif;
+            --font3: 'Roboto', sans-serif
+        }
+
         body {
-            margin-top: 20px;
+            font-family: var(--font3);
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)
         }
 
-        .alert {
-            border-radius: 0;
-            -webkit-border-radius: 0;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.11);
-            display: table;
-            width: 100%;
+        h2 {
+            font-weight: 900
         }
 
-        .alert-white {
-            background-image: linear-gradient(to bottom, #fff, #f9f9f9);
-            border-top-color: #d8d8d8;
-            border-bottom-color: #bdbdbd;
-            border-left-color: #cacaca;
-            border-right-color: #cacaca;
-            color: #404040;
-            padding-left: 61px;
-            position: relative;
+        .container-fluid {
+            max-width: 1200px
         }
 
-        .alert-white.rounded {
-            border-radius: 3px;
-            -webkit-border-radius: 3px;
-        }
-
-        .alert-white.rounded .icon {
-            border-radius: 3px 0 0 3px;
-            -webkit-border-radius: 3px 0 0 3px;
-        }
-
-        .alert-white .icon {
-            text-align: center;
-            width: 45px;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            border: 1px solid #bdbdbd;
-            padding-top: 15px;
-        }
-
-
-        .alert-white .icon:after {
-            -webkit-transform: rotate(45deg);
-            -moz-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            -o-transform: rotate(45deg);
-            transform: rotate(45deg);
-            display: block;
-            content: '';
-            width: 10px;
-            height: 10px;
-            border: 1px solid #bdbdbd;
-            position: absolute;
-            border-left: 0;
-            border-bottom: 0;
-            top: 50%;
-            right: -6px;
-            margin-top: -3px;
+        .card {
             background: #fff;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+            transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+            border: 0;
+            border-radius: 1rem
         }
 
-        .alert-white .icon i {
-            font-size: 20px;
-            color: #fff;
-            left: 12px;
-            margin-top: -10px;
+        .card-img,
+        .card-img-top {
+            border-top-left-radius: calc(1rem - 1px);
+            border-top-right-radius: calc(1rem - 1px)
+        }
+
+        .card h5 {
+            overflow: hidden;
+            height: 56px;
+            font-weight: 900;
+            font-size: 1rem
+        }
+
+        .card-img-top {
+            width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+            padding: 30px
+        }
+
+        .card h2 {
+            font-size: 1rem
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06)
+        }
+
+        .label-top {
             position: absolute;
-            top: 50%;
+            background-color: #8bc34a;
+            color: #fff;
+            top: 8px;
+            right: 8px;
+            padding: 5px 10px 5px 10px;
+            font-size: .7rem;
+            font-weight: 600;
+            border-radius: 3px;
+            text-transform: uppercase
         }
 
-        /*============ colors ========*/
-        .alert-success {
-            color: #3c763d;
-            background-color: #dff0d8;
-            border-color: #d6e9c6;
+        .top-right {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            font-size: 1rem;
+            font-weight: 900;
+            background: #ff5722;
+            line-height: 90px;
+            text-align: center;
+            color: white
         }
 
-        .alert-white.alert-success .icon,
-        .alert-white.alert-success .icon:after {
-            border-color: #54a754;
-            background: #60c060;
+        .top-right span {
+            display: inline-block;
+            vertical-align: middle
         }
 
-        .alert-info {
-            background-color: #d9edf7;
-            border-color: #98cce6;
-            color: #3a87ad;
+        @media (max-width: 768px) {
+            .card-img-top {
+                max-height: 250px
+            }
         }
 
-        .alert-white.alert-info .icon,
-        .alert-white.alert-info .icon:after {
-            border-color: #3a8ace;
-            background: #4d90fd;
+        .over-bg {
+            background: rgba(53, 53, 53, 0.85);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(0.0px);
+            -webkit-backdrop-filter: blur(0.0px);
+            border-radius: 10px
         }
 
-
-        .alert-white.alert-warning .icon,
-        .alert-white.alert-warning .icon:after {
-            border-color: #d68000;
-            background: #fc9700;
+        .btn {
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            padding: 5px 50px 5px 50px
         }
 
-        .alert-warning {
-            background-color: #fcf8e3;
-            border-color: #f1daab;
-            color: #c09853;
+        .box .btn {
+            font-size: 1.5rem
         }
 
-        .alert-danger {
-            background-color: #f2dede;
-            border-color: #e0b1b8;
-            color: #b94a48;
+        @media (max-width: 1025px) {
+            .btn {
+                padding: 5px 40px 5px 40px
+            }
         }
 
-        .alert-white.alert-danger .icon,
-        .alert-white.alert-danger .icon:after {
-            border-color: #ca452e;
-            background: #da4932;
+        @media (max-width: 250px) {
+            .btn {
+                padding: 5px 30px 5px 30px
+            }
+        }
+
+        .btn-warning {
+            background: none #f7810a;
+            color: #ffffff;
+            fill: #ffffff;
+            border: none;
+            text-decoration: none;
+            outline: 0;
+            box-shadow: -1px 6px 19px rgba(247, 129, 10, 0.25);
+            border-radius: 100px
+        }
+
+        .btn-warning:hover {
+            background: none #ff962b;
+            color: #ffffff;
+            box-shadow: -1px 6px 13px rgba(255, 150, 43, 0.35)
+        }
+
+        .bg-success {
+            font-size: 1rem;
+            background-color: #f7810a !important
+        }
+
+        .bg-danger {
+            font-size: 1rem
+        }
+
+        .price-hp {
+            font-size: 1rem;
+            font-weight: 600;
+            color: darkgray
+        }
+
+        .amz-hp {
+            font-size: .7rem;
+            font-weight: 600;
+            color: darkgray
+        }
+
+        .fa-question-circle:before {
+            color: darkgray
+        }
+
+        .fa-plus:before {
+            color: darkgray
+        }
+
+        .box {
+            border-radius: 1rem;
+            background: #fff;
+            box-shadow: 0 6px 10px rgb(0 0 0 / 8%), 0 0 6px rgb(0 0 0 / 5%);
+            transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12)
+        }
+
+        .box-img {
+            max-width: 300px
+        }
+
+        .thumb-sec {
+            max-width: 300px
+        }
+
+        @media (max-width: 576px) {
+            .box-img {
+                max-width: 200px
+            }
+
+            .thumb-sec {
+                max-width: 200px
+            }
+        }
+
+        .inner-gallery {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin: 1px;
+            display: inline-block;
+            overflow: hidden;
+            -o-object-fit: cover;
+            object-fit: cover
+        }
+
+        @media (max-width: 370px) {
+            .box .btn {
+                padding: 5px 40px 5px 40px;
+                font-size: 1rem
+            }
+        }
+
+        .disclaimer {
+            font-size: .9rem;
+            color: darkgray
+        }
+
+        .related h3 {
+            font-weight: 900
+        }
+
+        footer {
+            background: #212529;
+            height: 80px;
+            color: #fff
         }
     </style>
-@endsection
-@section('content')
-    <div class="container p-2">
-        <div class="row m-2">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                @if (session()->has('resultat'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="text-light fa-solid fa-check btn rounded-circle border border-5 bg-success"></i>
-                        &nbsp;&nbsp;
-                        <strong>Success!</strong> {{ session()->get('resultat') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-                <a href={{ route('etudiants.add') }} class="btn btn-success text-center">Ajouter etudiant </a>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover table-borderless table-primary align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>ID</th>
-                                <th>Nom</th>
-                                <th>Prenom</th>
-                                <th>profile</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                            @foreach ($etudiants as $etudiant)
-                                <tr class="table-primary">
-                                    <td scope="row">{{ $etudiant->id }}</td>
-                                    <td>{{ $etudiant->nom }}</td>
-                                    <td>{{ $etudiant->prenom }}</td>
-                                    <td>{{ $etudiant->profile }}</td>
-                                    <td>
-                                        <a href="Etudiant/edit/{{ $etudiant->id }}"><i class="fa-solid fa-edit"></i></a>
-                                        <form action="Etudiant/delete/{{ $etudiant->id }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('delete')
-                                            <button class="text-danger fa-solid fa-trash btn"></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                        </tfoot>
-                    </table>
-                    <span>{{ $etudiants->links() }}</span>
-                </div>
+</head>
+
+<body>
+    {{-- @dd($d) --}}
+
+    <main>
+        <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+                @foreach ($d as $data)
+                    <x-Form.button intitule="{{ $data['intitule'] }}" cl="{{$data['class']}}" source="{{ $data['source'] }}" prix="{{ $data['prix'] }}"
+                        description="{{ $data['description'] }}"  />
+                @endforeach
             </div>
-            <div class="col-md-1"></div>
         </div>
-    </div>
-@endsection
+    </main>
+</body>
+
+</html>
